@@ -1,0 +1,17 @@
+# Normalize text files to LF regardless of which OS/editor checks them out
+# or commits them — this repo is touched from both Windows (VS Code) and
+# Linux, and without this, autocrlf differences between the two produce
+# noisy whole-file diffs with no real content change.
+* text=auto eol=lf
+
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
