@@ -134,6 +134,13 @@ header.top{
   padding-bottom: 12px;
   border-bottom: 1.5px solid var(--rule-major);
 }
+@media (max-width: 576px){
+  header.top{
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
 
 .byline{
   font-family: var(--font-name);
