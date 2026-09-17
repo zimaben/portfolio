@@ -1,0 +1,177 @@
+/* Background + blob layer — design-preview only (see design-preview.html).
+   Not yet wired into the accepted pages (index.html etc). */
+
+:root{
+  --paper: #F5EFC5;
+  --surface: #FBF8E6;
+  --rule: rgba(120, 145, 105, 0.13);
+  --rule-major: rgba(120, 145, 105, 0.13);
+  --margin: #C24B3C;
+  --margin-opacity: 1;
+  --ink: #2B2A25;
+  --ink-soft: #6B6A5E;
+  --accent: #C24B3C;
+  --chip-border: #C9BE8E;
+  --focus: #2E86AB;
+
+  --terrain: #2E86AB;
+  --ledger: #C24B3C;
+  --nimbus: #6E4E8C;
+  --notes: #3E7C59;
+
+  /* Single source of truth for "whatever color the blob identity currently
+     is" — the byline's last name, the work tabs, and the bullet dots/link
+     all read this. background.js overwrites it live, every animation frame,
+     with the canvas's own interpolated fill color, so everything stays in
+     sync through the transition, not just at rest. This value is only the
+     initial fallback before that first frame runs. */
+  --identity: var(--terrain);
+
+  --grid-image:
+    repeating-linear-gradient(to bottom, transparent 0 27px, var(--rule) 27px 28px);
+  --texture-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='4' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  --font-display: 'Architects Daughter', cursive;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-name: 'Poppins', Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper: #F4F8FB;
+    --surface: #FFFFFF;
+    --rule: rgba(46, 109, 164, 0.05);
+    --rule-major: rgba(46, 109, 164, 0.09);
+    --margin-opacity: 0;
+    --ink: #1C2B3A;
+    --ink-soft: #5A7086;
+    --accent: #C24B3C;
+    --chip-border: rgba(46, 109, 164, 0.22);
+    --focus: #2E6DA4;
+
+    --terrain: #1F5C99;
+    --ledger: #C24B3C;
+    --nimbus: #6E4E8C;
+    --notes: #2F7A55;
+
+    --grid-image:
+      repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(to right, var(--rule-major) 0 1px, transparent 1px 120px),
+      repeating-linear-gradient(to bottom, var(--rule-major) 0 1px, transparent 1px 120px);
+  }
+}
+
+:root[data-theme="dark"]{
+  --paper: #F4F8FB;
+  --surface: #FFFFFF;
+  --rule: rgba(46, 109, 164, 0.05);
+  --rule-major: rgba(46, 109, 164, 0.09);
+  --margin-opacity: 0;
+  --ink: #1C2B3A;
+  --ink-soft: #5A7086;
+  --accent: #C24B3C;
+  --chip-border: rgba(46, 109, 164, 0.22);
+  --focus: #2E6DA4;
+
+  --terrain: #1F5C99;
+  --ledger: #C24B3C;
+  --nimbus: #6E4E8C;
+  --notes: #2F7A55;
+
+  --grid-image:
+    repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(to bottom, var(--rule) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(to right, var(--rule-major) 0 1px, transparent 1px 120px),
+    repeating-linear-gradient(to bottom, var(--rule-major) 0 1px, transparent 1px 120px);
+}
+
+*{ box-sizing: border-box; }
+html{ min-height: 100%; overflow: hidden; }
+body{
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--paper);
+  background-image: var(--texture-image), var(--grid-image);
+  background-blend-mode: multiply, normal;
+  color: var(--ink);
+  font-family: var(--font-body);
+  padding: clamp(16px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Desktop: overflow at the bottom is simply clipped, no scrollbar. Below
+   ~576px the mobile stacked layout (see work.css) can genuinely run taller
+   than the viewport, so scrolling comes back. */
+@media (max-width: 576px){
+  html, body{ overflow-y: auto; overflow-x: hidden; }
+}
+
+a{ color: inherit; }
+
+.wrap{
+  position: relative;
+  z-index: 1;
+  max-width: 1040px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+header.top{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--rule-major);
+}
+
+.byline{
+  font-family: var(--font-name);
+  font-weight: 500;
+  font-size: clamp(15px, 1.7vw, 18px);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.byline .first{ color: var(--ink); }
+.byline .last{ color: var(--identity); }
+
+.wordmark{
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 38px);
+  line-height: 1;
+  color: var(--ink);
+}
+
+/* Full-viewport ambient layer. Fixed + pointer-events:none so it never
+   captures clicks and never affects document flow/height — content simply
+   sits on top of it. */
+#canvas{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.margin-rule{
+  position: fixed;
+  top: 0; bottom: 0;
+  left: clamp(22px, 3.5vw, 46px);
+  width: 2px;
+  background: var(--margin);
+  opacity: var(--margin-opacity);
+  pointer-events: none;
+  z-index: 0;
+}
+
