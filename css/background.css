@@ -140,6 +140,12 @@ header.top{
     align-items: flex-start;
     gap: 14px;
   }
+  /* The button row still sits first (see column-reverse above), but pinned
+     to the right rather than stacking flush left against everything below
+     it — left-aligned felt cramped next to the byline/wordmark/tabs. */
+  .header-actions{
+    align-self: flex-end;
+  }
 }
 
 .byline{
