@@ -7,6 +7,17 @@
   display: flex;
   gap: 8px;
 }
+@media (max-width: 576px){
+  /* header.top switches to flex-direction: column-reverse below 576px (see
+     background.css) — its cross-axis becomes horizontal, so this pins the
+     button row to the right instead of flush left with everything below
+     it. This has to live here, after the unconditional rule above, to win
+     the cascade tie: same specificity, and resume.css's <link> loads after
+     background.css's in the page head. */
+  .header-actions{
+    align-self: flex-end;
+  }
+}
 
 .resume-btn,
 .contact-btn{
