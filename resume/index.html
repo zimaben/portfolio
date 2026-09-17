@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../css/background.css">
   <link rel="stylesheet" href="../css/work.css">
   <link rel="stylesheet" href="../css/resume.css">
+  <link rel="stylesheet" href="../css/contact.css">
 </head>
 <body>
   <canvas id="canvas"></canvas>
@@ -22,15 +23,24 @@
         <div class="wordmark"><a href="../" style="color:inherit;text-decoration:none;">portfolio.</a></div>
         <div class="work-tabs" id="work-tabs" role="tablist" aria-label="Select a project"></div>
       </div>
-      <button class="resume-btn" id="resume-btn" type="button" aria-haspopup="dialog">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="9" y1="13" x2="15" y2="13"/>
-          <line x1="9" y1="17" x2="15" y2="17"/>
-        </svg>
-        <span>Resume</span>
-      </button>
+      <div class="header-actions">
+        <button class="resume-btn" id="resume-btn" type="button" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="15" y2="17"/>
+          </svg>
+          <span>Resume</span>
+        </button>
+        <button class="contact-btn" id="contact-btn" type="button" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 6-10 7L2 6"/>
+          </svg>
+          <span>Contact</span>
+        </button>
+      </div>
     </header>
 
     <div class="work-panel" id="work-panel">
@@ -66,8 +76,35 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="contact-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+      <div class="modal-header">
+        <h2 id="contact-modal-title">Contact</h2>
+        <button class="modal-x" id="contact-close-x" type="button" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <form class="contact-form" id="contact-form" action="https://formspree.io/f/xnpnqlkp" method="POST">
+          <label class="contact-field">
+            <span class="label-text">Your email</span>
+            <input type="email" name="email" required>
+          </label>
+          <label class="contact-field">
+            <span class="label-text">What can I help you with?</span>
+            <textarea name="message" required></textarea>
+          </label>
+          <button class="contact-submit" id="contact-submit" type="submit">Send</button>
+          <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-close-btn" id="contact-close-btn" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script src="../js/background.js"></script>
   <script src="../js/work.js"></script>
   <script src="../js/resume.js"></script>
+  <script src="../js/contact.js"></script>
 </body>
 </html>

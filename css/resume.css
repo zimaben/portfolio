@@ -1,7 +1,15 @@
-/* Resume button + modal — design-preview only, same page as background.css. */
+/* Header action buttons (Resume, Contact) + shared modal chrome — same page
+   as background.css. Modal styling here is generic (header/body/footer);
+   contact-form-specific field styles live in contact.css. */
 
-.resume-btn{
+.header-actions{
   align-self: flex-start;
+  display: flex;
+  gap: 8px;
+}
+
+.resume-btn,
+.contact-btn{
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -17,9 +25,12 @@
   cursor: pointer;
   transition: border-color 150ms ease, transform 150ms ease;
 }
-.resume-btn:hover{ transform: translateY(-1px); border-color: var(--identity); }
-.resume-btn:focus-visible{ outline: 2.5px solid var(--focus); outline-offset: 2px; }
-.resume-btn svg{ width: 15px; height: 15px; flex: none; }
+.resume-btn:hover,
+.contact-btn:hover{ transform: translateY(-1px); border-color: var(--identity); }
+.resume-btn:focus-visible,
+.contact-btn:focus-visible{ outline: 2.5px solid var(--focus); outline-offset: 2px; }
+.resume-btn svg,
+.contact-btn svg{ width: 15px; height: 15px; flex: none; }
 
 .modal-overlay{
   position: fixed;
@@ -74,8 +85,11 @@
 .modal-body{
   flex: 1 1 auto;
   min-height: 0;
-  background: #e9e9e9;
+  overflow-y: auto;
 }
+/* The PDF iframe needs a neutral backdrop behind it; the contact form (see
+   contact.css) sits directly on the modal's own surface instead. */
+#resume-modal .modal-body{ background: #e9e9e9; }
 .modal-body iframe{
   display: block;
   width: 100%;

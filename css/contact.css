@@ -1,0 +1,70 @@
+/* Contact form fields — sits inside the shared modal chrome (resume.css). */
+
+.contact-form{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.contact-field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-field .label-text{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.contact-field input,
+.contact-field textarea{
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1.5px solid var(--chip-border);
+  border-radius: 3px;
+  padding: 10px 12px;
+}
+.contact-field input:focus-visible,
+.contact-field textarea:focus-visible{
+  outline: 2.5px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--identity);
+}
+
+.contact-field textarea{
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+.contact-submit{
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #fff;
+  background: var(--identity);
+  border: 1.5px solid var(--identity);
+}
+.contact-submit:hover{ opacity: 0.9; }
+.contact-submit:focus-visible{ outline: 2.5px solid var(--focus); outline-offset: 2px; }
+.contact-submit:disabled{ opacity: 0.6; cursor: default; }
+
+.contact-status{
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+.contact-status[data-state="success"]{ color: #2F7A55; }
+.contact-status[data-state="error"]{ color: #C24B3C; }
