@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../css/work.css">
   <link rel="stylesheet" href="../css/resume.css">
   <link rel="stylesheet" href="../css/contact.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
   <canvas id="canvas"></canvas>
@@ -92,6 +93,7 @@
             <span class="label-text">What can I help you with?</span>
             <textarea name="message" required></textarea>
           </label>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAE6yRIklu6xkH_JL"></div>
           <button class="contact-submit" id="contact-submit" type="submit">Send</button>
           <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
         </form>
